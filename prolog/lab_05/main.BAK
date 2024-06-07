@@ -1,0 +1,68 @@
+domains
+  int=INTEGER
+  intlist=int*
+predicates
+  len(intlist L, int Res)
+  len(intlist L, int Acc, int Res)
+  
+  sum(intlist L, int Res)
+  sum(intlist L, int Acc, int Res)
+  
+  sum_odd(intlist L, int Res)
+  sum_odd(intlist L, int Acc, int Res)
+  
+  select_greater(intlist L, int X, intlist Res)
+  
+  delete(intlist L, int X, intlist Res)
+  
+  deleteAll(intlist L, int X, intlist Res)
+  
+  append(intlist A, intlist B, intlist R)
+
+clauses
+  len(L, Res) 		:- len(L, 0, Res).
+  len([], Res, Res) 	:- !.
+  len([_|T], Acc, Res) 	:- NewAcc=Acc+1, len(T,NewAcc,Res).
+   
+  sum(L, Res)		:- sum(L, 0, Res).
+  sum([], Res, Res)	:- !.
+  sum([H|T], Acc, Res)	:- NewAcc=Acc+H,sum(T,NewAcc,Res).
+  
+  sum_odd(L, Res)		:- sum_odd(L, 0, Res).
+  sum_odd([], Res, Res)		:- !.
+  sum_odd([_], Res, Res)	:- !.
+  sum_odd([_,H2|T], Acc, Res)	:- NewAcc=Acc+H2,sum_odd(T,NewAcc,Res).
+  
+  select_greater([], _, []).
+  select_greater([H|T], X, [H|T1])	:- H>X, select_greater(T,X,T1), !.
+  select_greater([H|T], X, T1)		:- H<=X, select_greater(T,X,T1), !.
+  
+  delete([],_,[]).
+  delete([H|T],H,T) 		:- !.
+  delete([H|T],X,[H|T1]) 	:- delete(T,X,T1), !.
+  
+  deleteAll([],_,[]).
+  deleteAll([H|T],H,T1)		:- deleteAll(T,H,T1), !.
+  deleteAll([H|T],X,[H|T1]) 	:- deleteAll(T,X,T1), !.
+  
+  append([],L,L).
+  append([H1|T1],L,[H1|T3]) :- append(T1, L, T3).
+  
+goal
+  %len([2,2,2], Res)
+  %sum([1,2,3, -23],Res)
+  sum_odd([1,2,3,4, 5],Res)
+  %select_greater([8,5,22,-3,6,0,1,2,3,4], 2, Res)
+  %delete([1,2,3,2,4],2,Res)
+  %deleteAll([1,2,3,2,4],2,Res)
+  %append([3,4],[2,1], R)
+  .
+  
+  
+  
+  
+  
+  
+  
+  
+  

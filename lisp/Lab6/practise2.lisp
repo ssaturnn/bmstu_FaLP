@@ -1,0 +1,16 @@
+(defun insertion_fun (n lst)
+  (cond ((null lst) (cons n nil))
+        ((> n (car lst)) (cons (car lst) (insertion_fun n (cdr lst))))
+        ((cons n lst))))
+
+(defun modified_sort (lst res)  
+    (cond ((null lst) res)
+          ((null (car lst)) (modified_sort (cdr lst) res))
+          ((atom (car lst)) (modified_sort (cdr lst) (insertion_fun (car lst) res)))
+          (T (modified_sort (cdr lst) (modified_sort (car lst) res)))
+          )
+)
+
+(defun result_insertion_sort (lst)
+    (modified_sort lst ())
+)

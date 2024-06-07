@@ -1,0 +1,41 @@
+domains
+lastName, phone = symbol.
+model, color = symbol.
+city, street, house, flat = symbol.
+number, price = integer.
+address = address(city, street, house, flat).
+
+predicates
+
+tel(lastName, phone, address).
+car(lastName, model, color, price, number).
+person(lastName, model, color, phone, city).
+
+clauses
+
+person(LastName, Model, Color, Phone, City):- tel(LastName, Phone, address(City, _, _, _)), car(LastName, Model, Color, _, _).
+
+tel("Petrov", "812314214", address("Moscow", "Baumana", "10", "4")).
+tel("Ivanov", "817314214", address("Moscow", "Baumana", "12", "7")).
+tel("Nickolaev", "815314214", address("Moscow", "Baumana", "15", "2")).
+%tel("Nickolaev", "815314214", address("Saratov", "Baumana", "15", "2")).
+%tel("Nickolaev", "812456431", address("Saratov", "Baumana", "15", "2")).
+
+car("Petrov", "Mercedes", "black", 10000000, 453).
+car("Ivanov", "Mercedes", "yellow", 15000000, 536).
+car("Nickolaev", "Toyota", "black", 15000000, 154).
+
+goal
+person(LastName, "Mercedes", "yellow", Tel, City).
+%person(LastName, _, "black", Tel, City).
+%person(LastName, "Mercedes", _, Tel, City).
+%tel("Ivanov", Phone, _).
+%car("Nickolaev", _, Color, _, _).
+%person(_, Model, Color, _, "Moscow").
+%person(LastName, _, "black", _, _).
+%person("Petrov", Model, _, _, _).
+%person(_, _, _, _, address("Moscow", "Baumana", _, _)).
+%car(_, _, _, _, 536), tel(LastName, Phone, _).
+%car(_, _, _, _, 453), tel(LastName, _, address(_, _, _, _)).
+%car("Nickolaev", _, _, Price, _).
+%car("Petrov", _, "black", _, Number).

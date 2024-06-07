@@ -1,0 +1,6 @@
+(defun rnth (lst n ind)
+(cond ((= ind n) (car lst))
+      (T (rnth (cdr lst) n (1+ ind)))
+))
+(defun recnth (n lst)
+(rnth lst n 0))
